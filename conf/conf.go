@@ -2,11 +2,8 @@ package conf
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 )
-
-const url = "https://api.trello.com/1/boards"
 
 // Config stores the configuration loaded from a file in the working directory
 type Config struct {
@@ -25,8 +22,12 @@ func Load() *Config {
 		panic(err)
 	}
 
-	cnf.URL = fmt.Sprintf("%s/%s?key=%s&token=%s&fields=name&cards=all&lists=all",
-		url, cnf.Board, cnf.Key, cnf.Token)
+	cnf.URL = "https://api.trello.com/1/boards/" + cnf.Board +
+		"?key=" + cnf.Key +
+		"&token=" + cnf.Token +
+		"&fields=" + "name" +
+		"&card_attachments=" + "cover" +
+		"&cards=all&lists=all&labels=all"
 
 	return &cnf
 }

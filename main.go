@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"trello-cache/conf"
 	"trello-cache/trello"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func requestData(cnf *conf.Config) ([]byte, error) {
@@ -32,12 +34,18 @@ func main() {
 		return
 	}
 
+	println(string(data))
+
 	board := trello.Board{}
 	if err := json.Unmarshal(data, &board); err != nil {
 		println(err.Error())
-	} else if pretty, err := json.MarshalIndent(board, "", "    "); err == nil {
-		println(string(pretty))
-	} else {
-		println(string(data))
 	}
+
+	spewer := &spew.ConfigState{
+		Indent:                  "  ",
+		DisableMethods:          true,
+		DisablePointerAddresses: true,
+		DisableCapacities:       true,
+	}
+	spewer.Dump(board)
 }
