@@ -1,0 +1,6 @@
+{
+	"comment": "Put comment here",
+	"key": "[Trello API key]",
+	"token": "[Trello user token]",
+	"project":"[board ID]"
+}
